@@ -1,0 +1,43 @@
+{
+  "schema_version": "scenario.2026-09-16.1",
+  "id": "create-shows-row",
+  "summary": "soumettre le formulaire create-form avec chaque champ renseigné — attendu : un effet observable : un nouvel élément de liste, une alerte ou un changement de statut (constat d'exploration converti, F-19)",
+  "origin": {
+    "kind": "exploration",
+    "finding_id": "form.create-form.submit-filled",
+    "explored_at": "2026-09-16T17:00:00Z",
+    "explorer": "conformance-bench-script-explorer@0.1.0"
+  },
+  "steps": [
+    {
+      "action": "goto"
+    },
+    {
+      "action": "fill",
+      "testid": "name",
+      "value": "Explo-name-{{unique}}"
+    },
+    {
+      "action": "fill",
+      "testid": "field-x",
+      "value": "Explo-field-x-{{unique}}"
+    },
+    {
+      "action": "click",
+      "testid": "create"
+    }
+  ],
+  "assertions": [
+    {
+      "kind": "count_increase",
+      "testid": "client-row",
+      "by": 1
+    },
+    {
+      "kind": "count_min",
+      "testid": "client-row",
+      "min": 1,
+      "has_text": "{{unique}}"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "schema_version": "2026-09-15.1",
+  "description": "Invariants de schéma ATTENDUS après application de toutes les migrations, et données à conserver à travers une migration. Vérifié par le banc Forge.",
+  "tables": {
+    "public.clients": {
+      "columns": ["id", "name", "field_x", "owner_id", "synced_at", "created_at"],
+      "rls_enabled": true,
+      "policies": [
+        "clients_select_own",
+        "clients_insert_own",
+        "clients_update_own",
+        "clients_delete_own"
+      ]
+    }
+  },
+  "preserve": {
+    "seed_after_migration": "20260901000000_init.sql",
+    "rows": [
+      { "name": "Client synthétique 1", "field_x": "X-1" },
+      { "name": "Client synthétique 2", "field_x": "X-2" }
+    ],
+    "columns_checked": ["name", "field_x"]
+  }
+}

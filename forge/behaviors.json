@@ -1,0 +1,23 @@
+{
+  "schema_version": "behaviors.2026-09-15.1",
+  "description": "Comportements DÉCLARÉS par la fixture que l'analyse statique ne peut pas inférer (parcours, intégrations). Une déclaration n'est pas une preuve : l'adaptateur vérifie que ses ancrages existent dans le code (provenance « declared »), et la politique de vérification, hors candidat, décide de la stratégie.",
+  "journeys": [
+    {
+      "id": "clients.create-read",
+      "summary": "créer un client depuis le formulaire puis le relire après rechargement",
+      "testids": ["create-form", "name", "field-x", "create", "client-row", "client-name"]
+    },
+    {
+      "id": "clients.sync-y",
+      "summary": "synchroniser un client vers Y ; en cas d'erreur, reprendre avec la même clé d'idempotence",
+      "testids": ["sync", "sync-status", "error"]
+    }
+  ],
+  "integrations": [
+    {
+      "id": "integration.y",
+      "summary": "service externe Y, appelé par le front avec une clé d'idempotence par client",
+      "config_key": "syncUrl"
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+# Simulation d'un push de BOT (ADR-0029, F-25) : github-actions[bot] pousse un commit sur une
+# branche dédiée — l'expéditeur du webhook est alors un bot, comme pour Lovable. Déclenchement
+# manuel seulement ; dépôt synthétique jetable, aucune donnée réelle.
+name: bot-push
+
+on:
+  workflow_dispatch:
+    inputs:
+      note:
+        description: "Texte ajouté par le bot"
+        type: string
+        required: false
+        default: "modification poussée par un bot"
+
+permissions:
+  contents: write
+
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+      - name: Commit du bot sur la branche bot/sim
+        env:
+          NOTE: ${{ inputs.note }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B bot/sim
+          printf '%s — %s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$NOTE" >> BOT.md
+          git add BOT.md
+          git commit -m "bot: $NOTE"
+          git push -f origin bot/sim

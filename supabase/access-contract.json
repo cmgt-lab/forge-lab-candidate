@@ -1,0 +1,22 @@
+{
+  "schema_version": "2026-09-15.1",
+  "description": "Droits ATTENDUS sur public.clients, déclarés par la fixture. Le banc Forge les exerce par des connexions non propriétaires (SET ROLE + revendications JWT simulées) : aucune attente n'est déduite du code.",
+  "table": "public.clients",
+  "actors": {
+    "anon": { "role": "anon" },
+    "user_a": { "role": "authenticated", "sub": "11111111-1111-4111-8111-111111111111" },
+    "user_b": { "role": "authenticated", "sub": "22222222-2222-4222-8222-222222222222" }
+  },
+  "expectations": [
+    { "actor": "anon", "operation": "select", "expect": "empty" },
+    { "actor": "anon", "operation": "insert_own", "expect": "denied" },
+    { "actor": "user_a", "operation": "insert_own", "expect": "allowed" },
+    { "actor": "user_a", "operation": "insert_as_other", "expect": "denied" },
+    { "actor": "user_a", "operation": "select", "expect": "own_only" },
+    { "actor": "user_b", "operation": "select", "expect": "own_only" },
+    { "actor": "user_a", "operation": "update_own", "expect": "allowed" },
+    { "actor": "user_b", "operation": "update_other", "expect": "no_rows" },
+    { "actor": "user_b", "operation": "delete_other", "expect": "no_rows" },
+    { "actor": "user_a", "operation": "delete_own", "expect": "allowed" }
+  ]
+}
