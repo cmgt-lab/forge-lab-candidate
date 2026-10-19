@@ -12,3 +12,7 @@ La configuration publique est chargée à l'exécution depuis `/config.json` (m�
 - **Frontière d'URL** : la preview ne référence que les services du banc ; toute URL hors liste est un défaut.
 
 L'authentification est **simulée** par le banc (jeton fourni dans `config.json`) : rien ici ne prouve Supabase Auth ni PostgREST réels. Les défauts que le banc doit refuser vivent dans `conformance/defects/`.
+
+## Dépôt jetable
+
+Copie synthétique de la fixture Forge, hébergée sous l organisation cmgt-lab pour prouver l admission d un dépôt d un autre propriétaire (ADR-0029, F-25). Peut être supprimé à tout moment.
